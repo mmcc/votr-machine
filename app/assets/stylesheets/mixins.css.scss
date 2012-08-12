@@ -1,0 +1,34 @@
+/* Mixins */
+@mixin primary-font {
+	font-family: 'Rokkitt', serif;
+}
+@mixin clock-font {
+	font-family: 'Graduate', cursive;
+}
+@mixin hover-ease($element, $time) {
+	-moz-transition: $element $time + s ease;
+	-o-transition: $element $time + s ease;
+	-webkit-transition: $element $time + s ease;
+	-ms-transition: $element $time + s ease;
+}
+@mixin button($bg, $text) {
+	padding: 5px 30px;
+	border: none;
+	color: $text;
+	background-color: rgba($bg, 0.15);
+	@include hover-ease(background-color, 0.4);
+	&:hover { background-color: $bg; color: $background }
+	&:active { background-color: rgba($bg, 0.5) }
+}
+@mixin colorize($color) {
+	color: $color;
+	a { color: $color; }
+	.progress {
+		.outline {
+			background-color: $color;
+		}
+		.bar {
+			background-color: $color;
+		}
+	}
+}

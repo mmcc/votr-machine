@@ -1,0 +1,24 @@
+.round-header
+	%h1= @round.title
+
+.right.quick-actions
+	= link_to "Test", "#modal", "data-toggle" => "modal", :class => "btn-yellow"
+
+- unless @items.blank?
+	%table
+		%thead
+			%tr
+				%th Votes
+				%th Title
+				%th Actions
+		- @items.each do |i|
+			%tbody
+				%tr
+					%td= i.votes
+					%td= i.title
+					%td
+						= link_to "Delete", round_item_path(@round, i), :class => 'delete-item'
+
+
+#modal.hidden.modal
+	%p ok.

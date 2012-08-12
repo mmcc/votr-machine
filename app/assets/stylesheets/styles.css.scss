@@ -1,0 +1,248 @@
+/* Import from Google Webfonts */
+@import url(http://fonts.googleapis.com/css?family=Rokkitt:400,700|Graduate);
+
+@import "variables";
+@import "mixins";
+
+
+/*************/
+/* Utilities */
+/*************/
+.clearfix {
+  zoom:1;
+  &:before, &:after {
+    content: "\0020";
+    display: block;
+    height: 0;
+    overflow: hidden;
+  }
+  &:after {
+    clear: both;
+  }
+}
+.hidden { display: none; }
+.right { float: right; @extend .clearfix; }
+/* Alerts */
+.alert {
+	padding: 8px 35px 8px 14px;
+	margin-bottom: 18px;
+	color: darken($yellow, 50%);
+	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+	background-color: $yellow;
+	border: 1px solid darken($yellow, 10%);
+
+	.close {
+		position: relative;
+		top: -2px;
+		right: -21px;
+		line-height: 18px;
+	}
+}
+.alert-error {
+	color: darken($red, 50%);
+	background-color: $red;
+	border-color: darken($red, 10%);
+}
+.alert-success {
+	color: darken($green, 50%);
+	background-color: $green;
+	border-color: darken($green, 10%);
+}
+.alert-info {
+	color: darken($blue, 50%);
+	background-color: $blue;
+	border-color: darken($blue, 10%);
+}
+button.close {
+	padding: 0;
+	cursor: pointer;
+	background: transparent;
+	border: 0;
+	-webkit-appearance: none;
+}
+.close {
+	float: right;
+	font-size: 20px;
+	font-weight: bold;
+	line-height: 18px;
+	color: black;
+	text-shadow: 0 1px 0 white;
+	cursor: pointer;
+	opacity: 0.4;
+	filter: alpha(opacity=40);
+}
+.modal {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	z-index: 1050;
+	width: 560px;
+	margin: -250px 0 0 -280px;
+	overflow: auto;
+	background-color: white;
+	border: 1px solid #999;
+	color: $background;
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+	border-radius: 6px;
+	-webkit-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+	-moz-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+	box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+	-webkit-background-clip: padding-box;
+	-moz-background-clip: padding-box;
+	background-clip: padding-box;
+}
+/* End Alerts */
+
+/* Basic Body Elements */
+html { background-color: $background; }
+body { 
+	color: $text;
+	@include primary-font;
+}
+a { text-decoration: none; }
+
+/* Structure */
+.container {
+	width: 730px;
+	margin: 0 auto;
+}
+.round-header { text-align: center; }
+footer { text-align: center; }
+
+#clock { 
+	@include clock-font;
+}
+
+a { color: $text }
+
+/* Style the selection list */
+ul.selections {
+	list-style: none;
+	padding-left: 0;
+	li {
+		a { text-decoration: none; }
+	}
+}
+
+/* Set the base attributes for a selection */
+.progress { position: relative; height: 15px; }
+.outline {
+	filter: alpha(opacity=15);  
+  -moz-opacity: 0.15;  
+  -khtml-opacity: 0.15;  
+  opacity: 0.15; 
+  width: 100%;
+	height: 15px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.bar {
+	width: 0;
+	height: 15px;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+/* actually colorize selections */
+ul.selections{
+	li:nth-child(1) { @include colorize($green) }
+	li:nth-child(2) { @include colorize($blue) }
+	li:nth-child(3) { @include colorize($purple) }
+	li:nth-child(4) { @include colorize($yellow) }
+}
+
+.navigation {
+	margin-bottom: 20px;
+	ul {
+		padding-left: 0;
+		list-style: none;
+		li {
+			float: left;
+			a {
+				text-decoration: none;
+			}
+		}
+	}
+	@extend .clearfix;
+}
+
+.quick-actions { margin-bottom: 10px; }
+
+/* Tables */
+table {
+	width: 100%;
+	th {
+		background-color: $blue;
+		color: $background;
+		text-align: left;
+	}
+	th, td {
+		padding: 5px 20px;
+	}
+}
+
+/* Login Page */
+.login { 
+	width: 300px;
+	float: left;
+
+	input[type=text], input[type=password], input[type=email] {
+		width: 280px;
+		padding: 5px 10px;
+		font-size: 120%;
+		margin-bottom: 5px;
+		border: 2px solid transparent;
+		background: rgba($blue, 0.15);
+		color: $blue;
+		@include primary-font;
+	}
+	input:focus {
+		border: 2px solid $blue;
+		outline: none;
+	}
+	div { margin-bottom: 10px; }
+}
+
+/* Other common elements like buttons and ish. */
+button, input[type=submit] {
+	@include primary-font;
+	@include button($purple, $text)
+}
+.btn {
+	@include button($text, $background)
+}
+.btn-blue {
+	@include button($blue, $text)
+}
+.btn-green {
+	@include button($green, $text)
+}
+.btn-purple {
+	@include button($purple, $text)
+}
+.btn-yellow {
+	@include button($yellow, $text)
+}
+.btn-red {
+	@include button($red, $text)
+}
+
+/* Just so we can get some easy classes... */
+.green {
+	@include colorize($green);
+}
+.blue {
+	@include colorize($blue);
+}
+.purple {
+	@include colorize($purple);
+}
+.yellow {
+	@include colorize($yellow);
+}
+.red {
+	@include colorize($red)
+}

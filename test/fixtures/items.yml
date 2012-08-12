@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  title: MyString
+  votes: 1
+  percentage: 9.99
+  round_id: 1
+
+two:
+  title: MyString
+  votes: 1
+  percentage: 9.99
+  round_id: 1

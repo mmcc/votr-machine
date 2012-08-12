@@ -1,0 +1,70 @@
+.round-header
+	%h1= @round.title
+	%h1#clock.blue
+
+- unless @round.items.blank?
+	%ul.selections
+		- @round.items.each do |i|
+			%li[i]
+				%h3
+					= link_to "#{i.title}", round_item_path(@round, i), :class => "vote" 
+					%small (<span class="votes">#{i.votes}</span> votes)
+				.progress
+					.outline
+					.bar
+- else
+	%p This round doesn't seem to have any items...
+
+<div pub-key="pub-ac572c62-7762-4e2e-9afb-a7620048edb0" sub-key="sub-f5b1501e-a0fc-11e1-a6de-d1b91d67d2fc" ssl="off" origin="pubsub.pubnub.com" id="pubnub"></div>
+%script{ :src => "http://cdn.pubnub.com/pubnub-3.1.min.js" }
+%script{:type => "text/javascript"}
+	:plain
+		$(function () {
+
+			// Need to figure out a way to get serverSync working.
+			$('#clock').countdown({until: #{@timer.to_i}, format: 'HMS', compact: true, onExpiry: disableVoting});
+			update_votes(#{@msg});
+
+			$('.vote').click(function(event) {
+				event.preventDefault();
+				var $link = $(this);
+
+				if(my_votes <= 10) {
+				  $.ajax({
+							type: 'PUT',
+							url: $link.attr('href'),
+							success: function (response) {
+							console.log("Vote placed.");
+						},
+						error: function (response) {
+							console.log("Error: vote not placed.");
+				  		alert("Vote could not be placed at this time.");
+						}
+					});
+					my_votes = my_votes + 1;
+				} else {
+					alert("You've already voted too many times this round...");
+				}
+			});
+
+			// LISTEN FOR MESSAGES
+			PUBNUB.subscribe({
+				channel    : '#{@round.channel}',
+
+				restore    : false,
+
+				callback   : update_votes,
+
+				disconnect : function() {        // LOST CONNECTION.
+					console.log("Disconnected from PubNub.");
+				},
+
+				reconnect  : function() {        // CONNECTION RESTORED.
+					console.log("Reconnected to PubNub.");
+				},
+
+				connect    : function() {        // CONNECTION ESTABLISHED.
+					console.log("Connected to PubNub.");
+				}
+			})
+		});

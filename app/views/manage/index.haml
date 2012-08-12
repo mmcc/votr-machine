@@ -1,0 +1,28 @@
+%h1 Your Rounds
+
+%h2 Current Rounds
+- unless @rounds.current.blank?
+	%ul
+		- @rounds.current.each do |c|
+			%li
+				= link_to c.title, manage_path(c)
+				(#{c.total_votes} votes)
+- else 
+	%p You have no current rounds.
+
+%h2 Upcoming Rounds
+- unless @rounds.upcoming.blank?
+	%ul
+		- @rounds.upcoming.each do |u|
+			%li= u.title
+- else
+	%p You have no upcoming rounds.
+
+%h2 Past Rounds
+- unless @rounds.past.blank?
+	%ul
+		- @rounds.past.each do |p|
+			%li= p.title
+- else
+	%p You have no past rounds.
+	

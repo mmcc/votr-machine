@@ -1,0 +1,10 @@
+.navigation
+	%ul
+		- if current_user # Navigation for signed in users.
+			%li= link_to "Dashboard", user_root_path, :class => "btn-purple"
+			%li= link_to "Create Poll", new_manage_path, :class => "btn-green"
+			%li= link_to "Sign Out", destroy_user_session_path, :method => :delete, :class => "btn-blue"
+		- else
+			%li= link_to "Home", root_path, :class => "btn-purple"
+			%li= link_to "About", "#", :class => "btn-yellow"
+			%li= link_to "Sign In", new_user_session_path, :class => "btn-blue"
